@@ -52,6 +52,23 @@ title: 9M2PJU Mortgage Calculator
     margin: 0.5rem 0;
     font-weight: bold;
   }
+  .amortization-table {
+    margin-top: 2rem;
+    width: 100%;
+    border-collapse: collapse;
+    display: none;
+  }
+  .amortization-table th,
+  .amortization-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  .amortization-table th {
+    background-color: #007acc;
+    color: white;
+  }
 </style>
 
 <div class="calculator-container">
@@ -73,6 +90,19 @@ title: 9M2PJU Mortgage Calculator
     <p>💰 Total Payment: RM <span id="totalPayment"></span></p>
     <p>📈 Total Interest: RM <span id="totalInterest"></span></p>
   </div>
+
+  <table id="amortization" class="amortization-table">
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Payment (RM)</th>
+        <th>Principal (RM)</th>
+        <th>Interest (RM)</th>
+        <th>Balance (RM)</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 </div>
 
 <script>
@@ -82,20 +112,20 @@ function calculateMortgage() {
   const years = parseInt(document.getElementById("years").value);
   const months = years * 12;
 
-  if (rate === 0) {
-    const monthly = amount / months;
-    const totalPayment = monthly * months;
-    const totalInterest = totalPayment - amount;
+  let monthly, totalPayment, totalInterest;
 
-    updateResults(monthly, totalPayment, totalInterest);
-    return;
+  if (rate === 0) {
+    monthly = amount / months;
+    totalPayment = monthly * months;
+    totalInterest = totalPayment - amount;
+  } else {
+    monthly = (amount * rate) / (1 - Math.pow(1 + rate, -months));
+    totalPayment = monthly * months;
+    totalInterest = totalPayment - amount;
   }
 
-  const monthly = (amount * rate) / (1 - Math.pow(1 + rate, -months));
-  const totalPayment = monthly * months;
-  const totalInterest = totalPayment - amount;
-
   updateResults(monthly, totalPayment, totalInterest);
+  generateAmortizationTable(amount, rate, monthly, months);
 }
 
 function updateResults(monthly, total, interest) {
@@ -103,5 +133,27 @@ function updateResults(monthly, total, interest) {
   document.getElementById("totalPayment").textContent = total.toFixed(2);
   document.getElementById("totalInterest").textContent = interest.toFixed(2);
   document.getElementById("results").style.display = "block";
+}
+
+function generateAmortizationTable(principal, rate, monthly, months) {
+  const tableBody = document.querySelector("#amortization tbody");
+  tableBody.innerHTML = "";
+  let balance = principal;
+
+  for (let i = 1; i <= months; i++) {
+    const interest = rate === 0 ? 0 : balance * rate;
+    const principalPaid = monthly - interest;
+    balance -= principalPaid;
+
+    const row = `<tr>
+      <td>${i}</td>
+      <td>${monthly.toFixed(2)}</td>
+      <td>${principalPaid.toFixed(2)}</td>
+      <td>${interest.toFixed(2)}</td>
+      <td>${balance > 0 ? balance.toFixed(2) : "0.00"}</td>
+    </tr>`;
+    tableBody.innerHTML += row;
+  }
+  document.getElementById("amortization").style.display = "table";
 }
 </script>
