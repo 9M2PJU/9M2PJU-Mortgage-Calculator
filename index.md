@@ -1,10 +1,43 @@
 ---
 layout: default
-title: 9M2PJU Mortgage Calculator
+title: Mortgage Calculator
 ---
 
-<h2>Welcome to 9M2PJU Mortgage Calculator</h2>
+<h1>🏠 Mortgage Calculator</h1>
 
-<p>This calculator helps you estimate your monthly payments, total payments, and interest.</p>
+<form onsubmit="event.preventDefault(); calculate();">
+  <label>Loan Amount (RM)</label>
+  <input type="number" id="amount" required />
 
-<a href="calculator.html">Go to Calculator</a>
+  <label>Interest Rate (%)</label>
+  <input type="number" id="rate" step="0.01" required />
+
+  <label>Loan Term (Years)</label>
+  <input type="number" id="years" required />
+
+  <button type="submit">Calculate</button>
+</form>
+
+<div id="result" style="display:none;">
+  <p><strong>Monthly:</strong> RM <span id="monthly"></span></p>
+  <p><strong>Total Payment:</strong> RM <span id="totalPayment"></span></p>
+  <p><strong>Total Interest:</strong> RM <span id="totalInterest"></span></p>
+</div>
+
+<script>
+  function calculate() {
+    const amount = parseFloat(document.getElementById('amount').value);
+    const rate = parseFloat(document.getElementById('rate').value) / 100 / 12;
+    const years = parseInt(document.getElementById('years').value);
+    const months = years * 12;
+
+    const monthly = (amount * rate) / (1 - Math.pow(1 + rate, -months));
+    const totalPayment = monthly * months;
+    const totalInterest = totalPayment - amount;
+
+    document.getElementById('monthly').textContent = monthly.toFixed(2);
+    document.getElementById('totalPayment').textContent = totalPayment.toFixed(2);
+    document.getElementById('totalInterest').textContent = totalInterest.toFixed(2);
+    document.getElementById('result').style.display = 'block';
+  }
+</script>
