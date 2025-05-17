@@ -35,7 +35,7 @@ All calculations use standard amortization formulas.
 
 ## 🚀 Demo
 
-🔗 [Live Site]([https://9M2PJU.github.io/9M2PJU-mortgage-calculator/](https://9m2pju.github.io/9M2PJU-Mortgage-Calculator/))  
+🔗 [Live Site](https://9m2pju.github.io/9M2PJU-Mortgage-Calculator/)  
 
 
 ---
