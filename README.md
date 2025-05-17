@@ -46,7 +46,7 @@ All calculations use standard amortization formulas.
 - CSS3
 - Vanilla JavaScript
 - Jekyll (GitHub Pages)
-- Jekyll Theme: `jekyll-theme-cayman` *(or replace with the theme you use)*
+- Jekyll Theme: `jekyll-theme-cayman`
 
 ---
 
