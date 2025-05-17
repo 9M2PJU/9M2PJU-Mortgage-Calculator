@@ -57,24 +57,17 @@ title: 9M2PJU Mortgage Calculator
     width: 100%;
     border-collapse: collapse;
     display: none;
-    font-family: monospace;
   }
   .amortization-table th,
   .amortization-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: right;
-    font-size: 0.95rem;
-    white-space: nowrap;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    font-size: 0.9rem;
   }
   .amortization-table th {
     background-color: #007acc;
     color: white;
-    text-align: center;
-  }
-  .amortization-table td:first-child,
-  .amortization-table th:first-child {
-    text-align: center;
   }
 </style>
 
@@ -98,7 +91,7 @@ title: 9M2PJU Mortgage Calculator
     <p>📈 Total Interest: RM <span id="totalInterest"></span></p>
   </div>
 
-  <table id="amortization" class="amortization-table" aria-label="Amortization Table">
+  <table id="amortization" class="amortization-table">
     <thead>
       <tr>
         <th>Month</th>
