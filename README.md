@@ -48,10 +48,4 @@ All calculations use standard amortization formulas.
 - Jekyll (GitHub Pages)
 - Jekyll Theme: `jekyll-theme-cayman`
 
----
 
-## 📁 How to Use Locally
-
-```bash
-git clone https://github.com/9M2PJU/9M2PJU-mortgage-calculator.git
-cd mortgage-calculator
